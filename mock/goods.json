@@ -1,0 +1,24 @@
+{
+	"status": "0",
+	"msg": "",
+	"result": [
+		{
+			"productId": "100001",
+			"productName": "商品1",
+			"productPrice": 399,
+			"productImg": "1.jpg"
+		},
+		{
+			"productId": "100002",
+			"productName": "商品2",
+			"productPrice": 699,
+			"productImg": "2.jpg"
+		},
+		{
+			"productId": "100003",
+			"productName": "商品3",
+			"productPrice": 1899,
+			"productImg": "3.jpg"
+		}
+	]
+}
