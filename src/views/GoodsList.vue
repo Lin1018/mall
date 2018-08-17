@@ -35,7 +35,7 @@
                     <div class="name">{{item.productName}}</div>
                     <div class="price">{{item.salePrice}}</div>
                     <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                      <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
                     </div>
                   </div>
                 </li>
@@ -54,16 +54,17 @@
   </div>
 </template>
 <script>
-  import MHeader from 'src/components/header/m-header'
-  import MFooter from 'src/components/footer/m-footer'
-  import MNav from 'src/components/nav/m-nav'
+  import MHeader from 'src/components/m-header'
+  import MFooter from 'src/components/m-footer'
+  import MNav from 'src/components/m-nav'
+  import Modal from 'src/components/Modal'
   import axios from 'axios'
   export default{
     data() {
       return {
         sortFlag: true,
         page: 1,
-        pageSize: 6,
+        pageSize: 8,
         priceChecked: 'all',
         busy: true,
         loading: false,
@@ -90,11 +91,11 @@
       this.getGoodsList()
     },
     methods: {
-      getGoodsList(flag) {
+      getGoodsList(flag) { 
         this.loading = true
         axios({
           method: 'get',
-          url: '/api/goods',
+          url: '/api/goods/list',
           params: {
             page: this.page,
             pageSize: this.pageSize,
@@ -107,7 +108,7 @@
             if (flag) {
               this.goodsList = this.goodsList.concat(res.data.result.list)
 
-              if (res.data.result.list.length < 6) {
+              if (res.data.result.list.length < 8) {
                 this.busy = true
               } else {
                 this.busy = false
@@ -146,23 +147,31 @@
           this.page ++
           this.getGoodsList(true)
         }, 1000)
+      },
+      addCart(productId) {
+        axios.post('/api/goods/addCart', {
+          productId: productId
+        }).then(res => {
+          if (res.data.status == 0) {
+            alert('成功添加到购物车')
+          } else {
+            alert(res.data.msg)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       }
     },
     components: {
       MHeader,
       MFooter,
-      MNav
+      MNav,
+      Modal
     }
   }
 </script>
 
 <style>
-  @import '../../assets/css/base.css';
-  @import '../../assets/css/product.css';
-  .load-more {
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-    color: red;
-  }
+  @import '../assets/css/base.css';
+  @import '../assets/css/product.css';
 </style>

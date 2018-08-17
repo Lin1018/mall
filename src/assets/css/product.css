@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+.load-more {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  color: red;
+}
+
 .accessory-list > ul:after {
   visibility: hidden;
   display: block;
