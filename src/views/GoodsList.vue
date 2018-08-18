@@ -9,7 +9,7 @@
         <div class="filter-nav">
           <span class="sortby">价格排序:</span>
           <a href="javascript:void(0)" class="default cur">默认</a>
-          <a href="javascript:void(0)" class="price" @click="sortGoods">升/降序 <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+          <a href="javascript:void(0)" class="price" :class="{'sort-up': !sortFlag}" @click="sortGoods">升/降序<svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
           <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">筛选</a>
         </div>
         <div class="accessory-result">
@@ -50,11 +50,31 @@
       </div>
     </div>
     <div class="md-overlay" v-show="overLayFlag" @click="closePop"></div>
+    <modal :mdShow="mdShow" @close="closeModal">
+      <p class="message" slot="message">
+        请先登录，再进行该操作！
+      </p>
+      <div slot="btnGroup">
+        <a class="btn btn-m" @click="closeModal">关闭</a>
+      </div>
+    </modal>
+    <modal :mdShow="mdShowCart" @close="closeModal">
+      <p slot="message">
+        <svg class="icon-status-ok">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-status-ok"></use>
+        </svg>
+        <span>加入购物车成功!</span>
+      </p>
+      <div slot="btnGroup">
+        <a class="btn btn--m" href="javascript:;" @click="closeModal">继续购物</a>
+        <router-link class="btn btn--m btn--red" href="javascript:;" to="/cart">查看购物车</router-link>
+      </div>
+    </modal>
     <m-footer></m-footer>
   </div>
 </template>
 <script>
-  import MHeader from 'src/components/m-header'
+  import MHeader from 'src/components/m-header' 
   import MFooter from 'src/components/m-footer'
   import MNav from 'src/components/m-nav'
   import Modal from 'src/components/Modal'
@@ -71,6 +91,8 @@
         filterBy: false,
         overLayFlag: false,
         goodsList: [],
+        mdShow: false,
+        mdShowCart: false,
         priceFilter: [
           {
             startPrice: '0.00',
@@ -91,6 +113,10 @@
       this.getGoodsList()
     },
     methods: {
+      closeModal() {
+        this.mdShow = false
+        this.mdShowCart = false
+      },
       getGoodsList(flag) { 
         this.loading = true
         axios({
@@ -153,9 +179,9 @@
           productId: productId
         }).then(res => {
           if (res.data.status == 0) {
-            alert('成功添加到购物车')
+            this.mdShowCart = true
           } else {
-            alert(res.data.msg)
+            this.mdShow = true
           }
         }).catch(err => {
           console.log(err)
