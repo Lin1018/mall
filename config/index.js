@@ -13,6 +13,8 @@ module.exports = {
     proxyTable: {
         // 设置代理实现跨域访问接口
         '/api': {
+            // http://localhost:3000
+            // http://www.xp60.top:3000
             target: 'http://localhost:3000'
         }
     },

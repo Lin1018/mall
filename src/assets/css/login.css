@@ -149,3 +149,27 @@ a {
   visibility: visible;
   height: auto;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .md-modal .md-title{
+    margin-left: 55px;
+  }
+  .md-content .confirm-tips ul {
+    margin: 30px auto 0 auto;
+  }
+  .regi_form_input .regi_login_input {
+    margin: 0 auto;
+    position: static;
+    width: 153px;
+  }
+  .login-wrap {
+    margin: 0 auto;
+    padding-top: -20px;
+    padding-bottom: 20px;
+    width: 196px;
+  }
+  .error-wrap {
+    margin: -40px 0 20px 55px;
+  }
+}

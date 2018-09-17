@@ -4,23 +4,23 @@
       <div class="footer__secondary">
         <div class="footer__inner">
           <div class="footer__region">
-            <span>Region</span>
+            <span>区域</span>
             <select class="footer__region__select">
-              <option value="en-US">USA</option>
               <option value="zh-CN">China</option>
+              <option value="en-US">USA</option>
               <option value="in">India</option>
             </select>
           </div>
           <div class="footer__secondary__nav">
-            <span>Copyright © 2017 IMooc All Rights Reserved.</span>
-            <a href="http://us.lemall.com/us/aboutUs.html">
-              About Us
+            <span>版权 © 2017 Chris.</span>
+            <a href="http://chris1018.top/">
+              关于我
             </a>
-            <a href="http://us.lemall.com/us/termsofUse.html">
-              Terms &amp; Conditions
+            <a href="#">
+              服务 &amp; 条款
             </a>
             <a href="http://us.lemall.com/us/privacyPolicy.html">
-              Privacy Policy
+              隐私政策
             </a>
           </div>
         </div>

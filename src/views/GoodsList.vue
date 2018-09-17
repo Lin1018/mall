@@ -2,7 +2,7 @@
   <div>
     <m-header></m-header>
     <m-nav>
-      <span slot="Goods">Goods</span>
+      <span slot="Goods">商品列表</span>
     </m-nav>
     <div class="accessory-result-page accessory-page">
       <div class="container">

@@ -28,7 +28,6 @@
       </div>
       <div class="navbar-right-container" style="display: flex;">
         <div class="navbar-menu-container">
-          <!-- <a href="/" class="navbar-link">我的账户</a> -->
           <span class="navbar-link" v-if="nickName">{{nickName}}</span>
           <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="!nickName">登录</a>
           <a href="javascript:void(0)" class="navbar-link" @click="logout" v-else>退出</a>
@@ -52,9 +51,6 @@
         </div>
         <div class="md-content">
           <div class="confirm-tips">
-            <div class="error-wrap">
-              <span class="error error-show" v-show="errorTip">用户名或者密码错误</span>
-            </div>
             <ul>
               <li class="regi_form_input">
                 <i class="icon IconPeople"></i>
@@ -66,6 +62,9 @@
               </li>
             </ul>
           </div>
+          <div class="error-wrap">
+            <span class="error error-show" v-show="errorTip">用户名或者密码错误</span>
+          </div>          
           <div class="login-wrap">
             <a href="javascript:;" class="btn-login" @click="login">登  录</a>
           </div>
@@ -100,7 +99,6 @@
           let res =response.data
           if (res.status == '0') {
             this.nickName = res.result
-            console.log(this.nickName)
           }
         })
       },
@@ -120,6 +118,7 @@
           this.errorTip = true
           return
         }
+
         axios({
           method: 'post',
           url: '/api/users/login',
@@ -133,6 +132,7 @@
             this.loginModalFlag = false
             this.errorTip = false
             this.nickName = res.result.userName
+            return
           } else {
             this.errorTip = true
           }
@@ -143,5 +143,6 @@
 </script>
 
 <style>
+  
   @import '../assets/css/login.css'
 </style>
