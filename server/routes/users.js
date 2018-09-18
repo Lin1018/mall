@@ -15,28 +15,35 @@ router.post('/login', function(req, res, next) {
 	}
 
 	User.findOne(param, function(err, userDoc) {
-		if (userDoc) {
-			res.cookie('userId', userDoc.userId, {
-				path: '/',
-				maxAge: 1000*60*60
-			});
-			res.cookie('userName', userDoc.userName, {
-				path: '/',
-				maxAge: 1000*60*60
-			}); 
-			// req.session.user = userDoc;
-			res.json({
-				status: '0',
-				msg: '',
-				result: {
-					userName: userDoc.userName
-				}
-			});	
-		} else {
+		if (err) {
 			res.json({
 				status: '1',
-				msg: '账号或者密码错误'
+				msg: '数据库出错'
 			});
+		} else {
+			if (userDoc) {
+				res.cookie('userId', userDoc.userId, {
+					path: '/',
+					maxAge: 1000*60*60
+				});
+				res.cookie('userName', userDoc.userName, {
+					path: '/',
+					maxAge: 1000*60*60
+				}); 
+				// req.session.user = userDoc;
+				res.json({
+					status: '0',
+					msg: '',
+					result: {
+						userName: userDoc.userName
+					}
+				});	
+			} else {
+				res.json({
+					status: '1',
+					msg: '账号或者密码错误'
+				});
+			}			
 		}
 	})
 });
