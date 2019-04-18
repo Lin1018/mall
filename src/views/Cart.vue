@@ -26,28 +26,28 @@
                   </a>
                 </div>
                 <div class="cart-item-pic">
-                  <img v-lazy="'/static/'+item.productImage" v-bind:alt="item.productName">
+                  <img v-lazy="'/static/'+item.productImage + '.jpg'" v-bind:alt="item.productName">
                 </div>
                 <div class="cart-item-title">
                   <div class="item-name">{{item.productName}}</div>
                 </div>
               </div>
               <div class="cart-tab-2">
-                <div class="item-price">{{item.salePrice|currency('$')}}</div>
+                <div class="item-price">{{item.salePrice|currency}}</div>
               </div>
               <div class="cart-tab-3">
                 <div class="item-quantity">
                   <div class="select-self select-self-open">
                     <div class="select-self-area">
-                      <a class="input-sub" @click="editCart('minu',item)">-</a>
-                      <span class="select-ipt">{{item.productNum}}</span>
-                      <a class="input-add" @click="editCart('add',item)">+</a>
+                      <button class="input-sub" @click="editCart('minu',item)">-</button>
+                      <input class="select-ipt" type="number" v-model="item.productNum">
+                      <button class="input-add" @click="editCart('add',item)">+</button>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="cart-tab-4">
-                <div class="item-price-total">{{(item.productNum*item.salePrice)|currency('$')}}</div>
+                <div class="item-price-total">{{(item.productNum*item.salePrice)|currency}}</div>
               </div>
               <div class="cart-tab-5">
                 <div class="cart-item-opration">
@@ -62,40 +62,48 @@
           </ul>
         </div>
       </div>
-      <!-- <div class="cart-foot-wrap">
-        <div class="cart-foot-inner">
-          <div class="cart-foot-l">
-            <div class="item-all-check">
-              <a href="javascipt:;" @click="toggleCheckAll">
-                <span class="checkbox-btn item-check-btn" v-bind:class="{'check':checkAllFlag}">
-                    <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
-                </span>
-                <span>Select all</span>
-              </a>
-            </div>
-          </div>
-          <div class="cart-foot-r">
-            <div class="item-total">
-              Item total: <span class="total-price">{{totalPrice|currency('$')}}</span>
-            </div>
-            <div class="btn-wrap">
-              <a class="btn btn--red" v-bind:class="{'btn--dis':checkedCount==0}" @click="checkOut">Checkout</a>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-    import '../assets/css/checkout.css'
     import axios from 'axios'
     import MHeader from '@/components/m-header'
     import MNav from '@/components/m-nav'
     import MFooter from '@/components/m-footer'
     import Modal from '@/components/Modal'
     export default{
+      data() {
+        return {
+          cartList: [{
+            checked: '0',
+            productImage: '1',
+            productName: '1',
+            productNum: 10,
+            salePrice: 200
+          },{
+            checked: '0',
+            productImage: '2',
+            productName: '2',
+            productNum: 10,
+            salePrice: 200
+          },{
+            checked: '0',
+            productImage: '3',
+            productName: '3',
+            productNum: 10,
+            salePrice: 200
+          }]
+        }
+      },
+      methods: {
+
+      },
+      filters: {
+        currency(val) {
+          return '¥' + val
+        }
+      },
       components: {
         MHeader,
         MNav,
@@ -106,26 +114,24 @@
 </script>
 
 <style>
+  @import '../assets/css/checkout.css';
+
   .input-sub, .input-add{
-    min-width: 40px;
-    height: 100%;
+    width: 50px;
     border: 0;
     color: #605F5F;
     text-align: center;
     font-size: 16px;
-    overflow: hidden;
-    display: inline-block;
     background: #f0f0f0;
   }
   .item-quantity .select-self-area{
     background:none;
-    border: 1px solid #f0f0f0;
   }
   .item-quantity .select-self-area .select-ipt{
-    display: inline-block;
     padding:0 3px;
-    width: 30px;
-    min-width: 30px;
+    width: 50px;
+    min-width: 50px;
     text-align: center;
+    height: 100%;
   }
 </style>
